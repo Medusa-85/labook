@@ -40,9 +40,9 @@ export class UserBusiness {
             new Date().toISOString()
         )
         
-        console.table(newUser)
-
         const UserDB = newUser.toDBModel()
+
+        console.log(UserDB)
 
         await this.userDatabase.insertNewUser(UserDB)
 
@@ -72,7 +72,7 @@ export class UserBusiness {
             throw new BadRequestError("'password' deve ser string")
         }
 
-        const findUserDB: UserDB = await this.userDatabase.findByEmail(email)
+        const findUserDB: UserDB | undefined = await this.userDatabase.findByEmail(email)
 
         if(!findUserDB) {
             throw new NotFoundError("'email' não encontrado")
@@ -88,5 +88,21 @@ export class UserBusiness {
         )
 
         const verifyPassword = await this.hashManager.compare(password, user.getPassword())
+
+        if(!verifyPassword) {
+            throw new BadRequestError("'password' está incorreta")
+        }
+
+        const payload: TokenPayload = {
+            id: user.getId(),
+            name: user.getName(),
+            role: user.getRole()
+        }
+
+        const token = this.tokenManager.createToken(payload)
+        const output: LoginOutputDTO = {
+            token
+        }
+        return output
     }
 }
