@@ -51,3 +51,8 @@ export interface LikesDislikesDB {
     like: number
 }
 
+export enum POST_LIKE_DISLIKE {
+    ALREAD_LIKED = "ALREAD LIKED",
+    ALREAD_DISLIKED = "ALREAD DISLIKED"
+}
+
