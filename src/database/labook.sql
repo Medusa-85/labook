@@ -37,5 +37,17 @@ INSERT INTO posts (id, creator_id, content)
 VALUES ("p001", "u002", "Nada é tão bom que não possa melhorar"), 
 ("p002", "u004", "O dia só começa depois do café");
 SELECT*FROM users;
-SELECT*FROM posts;
+SELECT
+    posts.id,
+    posts.creator_id,
+    posts.content,
+    posts.likes,
+    posts.dislikes,
+    posts.created_at,
+    posts.updated_at,
+    users.name
+FROM posts
+JOIN users
+ON posts.creator_id = users.id
+;
 SELECT*FROM likes_dislikes;
