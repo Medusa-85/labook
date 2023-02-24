@@ -6,7 +6,7 @@ import { NotFoundError } from "../error/NotFoundError";
 import { Post } from "../models/posts";
 import { IdGenerator } from "../services/idGenerator";
 import { TokenManager } from "../services/TokenManager";
-import { PostDB, PostWithCreatorDB } from "../types";
+import { PostDB, PostWithCreatorDB, USER_ROLES } from "../types";
 
 export class PostBusiness {
     constructor(
@@ -26,8 +26,8 @@ export class PostBusiness {
             throw new BadRequestError("Token inválido")
         }
 
-        const postsWithCreatorsDB: PostWithCreatorDB[] = await this.postDatabase.getPostsWithCreators()   
-        console.log(postsWithCreatorsDB)        
+        const postsWithCreatorsDB: PostWithCreatorDB[] = await this.postDatabase.getPostsWithCreators()
+
         const posts = postsWithCreatorsDB.map(
             (postWithCreatorDB) => {
                 const post = new Post(
@@ -40,16 +40,16 @@ export class PostBusiness {
                     postWithCreatorDB.updated_at,
                     postWithCreatorDB.creator_name
                 )
-                //console.log(post)        
+                      
                 return post.toBusinessModel()
             }
         )
 
-        
+        console.log(posts)
+
         const output: GetPostOutputDTO = posts
 
         return output    
-
     }
 
     public createPost = async (input: CreatePostInputDTO): Promise<void> => {
@@ -158,18 +158,12 @@ export class PostBusiness {
         const creatorId = payload.id
         const creatorRole = payload.role
 
-        if(creatorId !== postDB.creator_id) {
+        if(postDB.creator_id !== creatorId && creatorRole !== USER_ROLES.ADMIN ) {
             throw new BadRequestError("usuário sem permissão para realizar esta ação")
         }
 
         await this.postDatabase.delete(idToDelete)
 
-        if(creatorRole !== "ADMIN") {
-            throw new BadRequestError("usuário sem permissão para realizar esta ação")
-        }
-
-
-
-
+        
     }
 }
