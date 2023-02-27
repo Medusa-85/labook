@@ -28,7 +28,7 @@ export class PostBusiness {
         }
 
         const postsWithCreatorsDB: PostWithCreatorDB[] = await this.postDatabase.getPostsWithCreators()
-
+            //console.log(postsWithCreatorsDB)
         const posts = postsWithCreatorsDB.map(
             (postWithCreatorDB) => {
                 const post = new Post(
@@ -41,9 +41,12 @@ export class PostBusiness {
                     postWithCreatorDB.updated_at,
                     postWithCreatorDB.creator_name
                 )
+                console.log(postWithCreatorDB)
                       
                 return post.toBusinessModel()
+                   
             }
+            
         )
 
         //console.log(posts)
