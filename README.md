@@ -12,7 +12,7 @@
   </a>
 </p>
 
-> O Labook é uma rede social onde quem se cadastrar no app terá a possibilidade de criar e curtir postagens. O app Labook conta com código de segurança que permite acesso do usuário a partir de checagem de senhas que passaram por processo de hash com Bcrypt, gerando um token jtw de identificação do usuário que será necessário caso este deseje realizar ações como criar um novo post ou editar, deletar e dar like ou dislike em posts existentes. O projeto foi desenvolvido utilizando-se paradigma de programação orientada a objetos e possue arquitetura limpa em 3 camadas (controller, business e database).   
+> O Labook é uma rede social onde quem se cadastrar no app terá a possibilidade de criar e curtir postagens. O app Labook conta com código de segurança que permite acesso do usuário a partir de checagem de senhas que passaram por processo de hash com Bcrypt, gerando um token jtw de identificação do usuário que será necessário caso este deseje realizar ações como criar um novo post ou editar, deletar e dar like ou dislike em posts existentes. O projeto foi desenvolvido utilizando-se paradigma de programação orientada a objetos e possue arquitetura limpa em 3 camadas (controller, business e database). Para acessar a documentação da API, acesse https://documenter.getpostman.com/view/24461431/2s93CRKBTw
 
 ### 🏠 [Homepage](https://github.com/Medusa-85/labook#readme)
 
